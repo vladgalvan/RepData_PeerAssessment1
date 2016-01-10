@@ -1,6 +1,6 @@
 # Assignment: Course Project 1
 
-1. Code for reading in the dataset and/or processing the data:
+1 Code for reading in the dataset and/or processing the data:
 
 ```r
 #load the data and process#
@@ -9,7 +9,7 @@ row.has.na <- apply(rawdata, 1, function(x){any(is.na(x))})
 dataNoNAs <- rawdata[!row.has.na,]
 ```
 
-2. Histogram of the total number of steps taken each day:
+2 Histogram of the total number of steps taken each day:
 
 ```r
 library(plyr)
@@ -19,7 +19,7 @@ hist(totaldailysteps$totalsteps,breaks = 16,col="red",xlab="daily steps",main="T
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
 
-3. Mean and median of the total number of steps taken per day:
+3 Mean and median of the total number of steps taken per day:
 
 ```r
 mean(totaldailysteps$totalsteps)
@@ -37,7 +37,7 @@ median(totaldailysteps$totalsteps)
 ## [1] 10765
 ```
 
-4. Time series plot of the average number of steps taken:
+4 Time series plot of the average number of steps taken:
 
 ```r
 meanintervalsteps<- ddply(dataNoNAs, .(interval), summarise, avgsteps = mean(steps))
@@ -46,7 +46,7 @@ with(meanintervalsteps,plot(interval, avgsteps, type = "l", lwd=2, col = c("red"
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)\
 
-5. The 5-minute interval that, on average, contains the maximum number of steps:
+5 The 5-minute interval that, on average, contains the maximum number of steps:
 
 ```r
 meanintervalstepsordered<-arrange(meanintervalsteps, desc(avgsteps))
@@ -57,7 +57,7 @@ meanintervalstepsordered[1,1]
 ## [1] 835
 ```
 
-6. Code to describe and show a strategy for imputing missing data:
+6 Code to describe and show a strategy for imputing missing data:
 
 ```r
 ##STRATEGY: USE THE MEAN OF THE 5-MINUTE INTERVALS TO FILL THE DAYS WITH MISSING VALUES (NAs)
@@ -68,7 +68,7 @@ colnames(fixeddata) <- c("steps", "date","interval")
 fixeddatacomplete  <- rbind(fixeddata, dataNoNAs)
 ```
 
-7. Histogram of the total number of steps taken each day after missing values are imputed:
+7 Histogram of the total number of steps taken each day after missing values are imputed:
 
 ```r
 totaldailysteps2<- ddply(fixeddatacomplete, .(date), summarise, totalsteps = sum(steps))
@@ -77,7 +77,7 @@ hist(totaldailysteps2$totalsteps,breaks = 16,col="red",xlab="daily steps",main="
 
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)\
 
-8. Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends:
+8 Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends:
 
 ```r
 fixeddatacomplete2  <- fixeddatacomplete
